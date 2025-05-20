@@ -6,7 +6,7 @@ import Footer from "./components/Footer";
 import About from "./components/About";
 import Wishes from "./components/Wishes";
 import "./App.css";
-
+import Game1 from "./components/Game1"; 
 function App() {
   const [dark, setDark] = useState(false);
 
@@ -25,6 +25,7 @@ function App() {
       <main className="flex-1">
         <Gallery />
         <Games />
+        <Game1/>
         <Wishes />
       </main>
       <Footer />
