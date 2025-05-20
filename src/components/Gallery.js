@@ -15,12 +15,14 @@ const photos = [
 
 function Gallery() {
   const [centerIdx, setCenterIdx] = useState(2);
+  const [previewIdx, setPreviewIdx] = useState(null);
+  let longPressTimer = null;
 
   const getPosition = (idx) => {
     const angle = ((idx - centerIdx) * 72) * (Math.PI / 180);
     const radius = 120;
     return {
-      transform: `translate(${Math.sin(angle) * radius}px, ${-Math.cos(angle) * radius}px) scale(${idx === centerIdx ? 1.2 : 0.8})`,
+      transform: `translate(${Math.sin(angle) * radius}px, ${-Math.cos(angle) * radius}px) scale(${idx === centerIdx ? 1.5 : 0.8})`,
       zIndex: idx === centerIdx ? 2 : 1,
       cursor: idx === centerIdx ? "default" : "pointer",
       transition: "transform 0.4s",
@@ -39,9 +41,18 @@ function Gallery() {
     };
   };
 
+  // Handle long press for mobile
+  const handleTouchStart = (idx) => {
+    longPressTimer = setTimeout(() => setPreviewIdx(idx), 400); // 400ms for long press
+  };
+  const handleTouchEnd = () => {
+    clearTimeout(longPressTimer);
+  };
+  const handleClosePreview = () => setPreviewIdx(null);
+
   return (
     <section className="flex flex-col items-center py-8 bg-[#22223b]" id="gallery">
-      <h2 className="text-2xl font-bold mb-10 text-white">Gallery</h2>
+      <h2 className="text-2xl font-bold mb-12 text-white">Gallery</h2>
       <div className="relative w-[320px] h-[320px] mx-auto mb-6">
         {photos.map((photo, idx) => (
           <img
@@ -49,8 +60,14 @@ function Gallery() {
             src={photo.src}
             alt={`Gallery ${idx + 1}`}
             style={getPosition(idx)}
-            onClick={() => setCenterIdx(idx)}
+            onClick={() => {
+              if (idx === centerIdx) setPreviewIdx(idx); // Only enlarge if it's the top image
+              else setCenterIdx(idx); // Otherwise, move it to the top
+            }}
             draggable={false}
+            onTouchStart={() => handleTouchStart(idx)}
+            onTouchEnd={handleTouchEnd}
+            onTouchCancel={handleTouchEnd}
           />
         ))}
       </div>
@@ -58,6 +75,19 @@ function Gallery() {
         <p className="font-semibold mb-2 text-white">Photo {centerIdx + 1}</p>
         <p className="text-white">{photos[centerIdx].desc}</p>
       </div>
+      {/* Modal for enlarged preview */}
+      {previewIdx !== null && (
+        <div
+          className="fixed inset-0 bg-black bg-opacity-70 flex items-center justify-center z-50"
+          onClick={handleClosePreview}
+        >
+          <img
+            src={photos[previewIdx].src}
+            alt="Preview"
+            className="w-[90vw] max-w-md h-auto rounded-xl object-contain border-4 border-yellow-200 shadow-2xl bg-[#22223b]"
+          />
+        </div>
+      )}
     </section>
   );
 }

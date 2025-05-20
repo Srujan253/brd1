@@ -2,7 +2,7 @@ import React from "react";
 import Countdown from "./Countdown";
 import childhood from "../photo/childhood.jpg";
 import "./About.css";
-
+// import flower from "../photo/flower.png";
 function About() {
   const targetDate = "2025-07-27";
 
@@ -19,7 +19,8 @@ function About() {
         </div>
       </div>
       <div className="md:w-1/2 flex flex-col items-center md:items-start slide-in-right">
-        <h1 className="text-3xl font-bold mb-4 text-white">About the Birthday Star  </h1>
+        <h1 className="text-3xl font-bold mb-4 text-white">About the Birthday Star</h1>
+        {/* <img src={flower} alt="flower" style={{ width: 60, height: 60, background: "white" }} />  */}
         <div className="mb-4 text-white max-w-md border-l-4 border-yellow-200 pl-4">
           <span className="font-semibold">Name:</span>Srushti (Tokke)<br />
           <span className="font-semibold">Hobbies:</span> Yelling,talkig,Screaming<br />
