@@ -1,0 +1,16 @@
+.tilt-container {
+  perspective: 800px;
+  display: inline-block;
+}
+
+.tilt-img {
+  transition: transform 0.3s cubic-bezier(.4,0,.2,1), box-shadow 0.3s;
+  will-change: transform;
+  box-shadow: 0 8px 32px rgba(34,34,59,0.15);
+  border-radius: 1rem;
+}
+
+.tilt-img:hover {
+  transform: rotateY(18deg) rotateX(8deg) scale(1.05);
+  box-shadow: 0 16px 48px rgba(255,224,102,0.25);
+}

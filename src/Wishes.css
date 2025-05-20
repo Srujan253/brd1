@@ -1,0 +1,7 @@
+.wish-card {
+  border: 2px solid #ffe066;
+  background: #22223b;
+  border-radius: 1rem;
+  padding: 1rem;
+  box-shadow: 0 2px 8px rgba(34,34,59,0.08);
+}
