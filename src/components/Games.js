@@ -2,7 +2,7 @@ import React, { useState } from "react";
 
 const questions = [
   { question: "What is the Favorite color of srushti?", options: ["yellow", "black", "violet", "red"], answer: "violet" },
-  { question: "what is her favorite food?", options: ["pizza", "chicken", "fish", "crab"], answer: "crab" },
+  { question: "what is her favorite food?", options: ["pizza", "chicken", "fish", "crab"], answer: "fish" },
   { question: "what's her father name?", options: ["manjunath", "mahesh", "mahadev", "harish"], answer: "manjunath" },
 ];
 

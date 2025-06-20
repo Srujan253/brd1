@@ -71,8 +71,8 @@ function Countdown({ targetDate }) {
         </div>
       </div>
       <button
-        className={`mt-4 px-6 py-2 rounded font-bold text-white transition ${
-          isTimeUp ? "bg-amber-500 hover:bg-amber-600" : "bg-gray-400 cursor-not-allowed"
+        className={`mt-4 px-6 py-2 rounded font-bold text-white transition bg-amber-500 hover:bg-amber-600 ${
+          isTimeUp ? "" : "bg-gray-400 cursor-not-allowed"
         }`}
         disabled={!isTimeUp}
         onClick={() => setShowWishBox(true)}

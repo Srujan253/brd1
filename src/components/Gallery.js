@@ -7,7 +7,7 @@ import farewell from "../photo/Farewell.jpg";
 
 const photos = [
   { src: Ethnic, desc: "Celebrating Ethnic day in SDM Ujire back in a golden days." },
-  { src: Cossplay, desc: "Winning a cossplay award was best moment in collaghe" },
+  { src: Cossplay, desc: "Winning a cossplay award was best moment in collage" },
   { src: Drama, desc: "Acting as a child in front of 1000 people makes me feel like a star." },
   { src: Best_frds, desc: "the one frd who stay for a long time and never leave me alone." },
   { src: farewell, desc: "Ending an era with a farewell party, but the memories will last forever." },
