@@ -7,7 +7,6 @@ import About from "./components/About";
 import Wishes from "./components/Wishes";
 import "./App.css";
 import Game1 from "./components/Game1"; 
-import { Analytics } from "@vercel/analytics/next"
 function App() {
   const [dark, setDark] = useState(false);
 
@@ -30,7 +29,6 @@ function App() {
         <Wishes />
       </main>
       <Footer />
-      <Analytics />
     </div>
   );
 }
