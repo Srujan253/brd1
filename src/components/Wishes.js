@@ -1,19 +1,30 @@
+
 import React, { useEffect, useState } from "react";
 import "../Wishes.css";
 
+
+const API_URL = process.env.REACT_APP_API_URL || "http://localhost:5000/api";
+
 function Wishes() {
   const [wishes, setWishes] = useState([]);
+  const [loading, setLoading] = useState(true);
 
+  // Fetch wishes from backend
   useEffect(() => {
-    const stored = localStorage.getItem("wishes");
-    if (stored) setWishes(JSON.parse(stored));
+    fetch(`${API_URL}/wishes`)
+      .then(res => res.json())
+      .then(data => {
+        setWishes(data);
+        setLoading(false);
+      })
+      .catch(() => setLoading(false));
   }, []);
 
   // Remove all wishes with passkey
-  const handleClearAll = () => {
+  const handleClearAll = async () => {
     const key = prompt("Enter passkey to remove all wishes:");
     if (key === "27@80888762") {
-      localStorage.removeItem("wishes");
+      await fetch(`${API_URL}/wishes`, { method: "DELETE" });
       setWishes([]);
     } else if (key !== null) {
       alert("Incorrect passkey!");
@@ -21,12 +32,12 @@ function Wishes() {
   };
 
   // Remove a single wish with passkey
-  const handleRemoveWish = (idx) => {
+  const handleRemoveWish = async (idx) => {
     const key = prompt("Enter passkey to remove this wish:");
     if (key === "27@80888762") {
-      const updated = wishes.filter((_, i) => i !== idx);
-      setWishes(updated);
-      localStorage.setItem("wishes", JSON.stringify(updated));
+      const wishId = wishes[idx]._id;
+      await fetch(`${API_URL}/wishes/${wishId}`, { method: "DELETE" });
+      setWishes(wishes.filter((_, i) => i !== idx));
     } else if (key !== null) {
       alert("Incorrect passkey!");
     }
@@ -42,12 +53,14 @@ function Wishes() {
         >
           Clear All Wishes
         </button>
-        {wishes.length === 0 ? (
+        {loading ? (
+          <p className="text-center text-white">Loading...</p>
+        ) : wishes.length === 0 ? (
           <p className="text-center text-white">No wishes yet. Be the first to wish!</p>
         ) : (
           <div className="max-w-2xl mx-auto flex flex-col gap-4">
             {wishes.map((wish, idx) => (
-              <div key={idx} className="wish-card relative">
+              <div key={wish._id || idx} className="wish-card relative">
                 <button
                   onClick={() => handleRemoveWish(idx)}
                   className="absolute top-2 right-2 text-xs bg-red-600 text-white px-2 py-1 rounded hover:bg-red-700"

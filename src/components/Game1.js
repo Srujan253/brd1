@@ -13,9 +13,17 @@ function shuffle(array) {
   return arr;
 }
 
-function getTopScores() {
-  const scores = JSON.parse(localStorage.getItem("memoryGameScores") || "[]");
-  return scores.sort((a, b) => a.moves - b.moves).slice(0, 3);
+
+const API_URL = process.env.REACT_APP_API_URL || "http://localhost:5000/api";
+
+async function getTopScores() {
+  try {
+    const res = await fetch(`${API_URL}/memoryscores`);
+    const data = await res.json();
+    return data.slice(0, 3);
+  } catch {
+    return [];
+  }
 }
 
 function Game1() {
@@ -24,18 +32,26 @@ function Game1() {
   const [matched, setMatched] = useState([]);
   const [moves, setMoves] = useState(0);
   const [finished, setFinished] = useState(false);
-  const [topScores, setTopScores] = useState(getTopScores());
+  const [topScores, setTopScores] = useState([]);
+
+  useEffect(() => {
+    // Fetch top scores from backend
+    getTopScores().then(setTopScores);
+    // eslint-disable-next-line
+  }, []);
 
   useEffect(() => {
     if (matched.length === cards.length) {
       setFinished(true);
-      // Save score
+      // Save score to backend
       const name = prompt("You finished! Enter your name for the leaderboard:");
       if (name) {
-        const scores = JSON.parse(localStorage.getItem("memoryGameScores") || "[]");
-        scores.push({ name, moves });
-        localStorage.setItem("memoryGameScores", JSON.stringify(scores));
-        setTopScores(getTopScores());
+        fetch(`${API_URL}/memoryscores`, {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ name, moves, date: new Date().toLocaleString() })
+        })
+          .then(() => getTopScores().then(setTopScores));
       }
     }
     // eslint-disable-next-line
