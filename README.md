@@ -2,7 +2,7 @@
 
 A React-based web application (hosted at: [brd-eta.vercel.app](https://brd-eta.vercel.app)).
 
-## 🚀 Table of Contents
+## 🚀 Table of Content
 
 - [About](#about)  
 - [Tech Stack](#tech-stack)  
