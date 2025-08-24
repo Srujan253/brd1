@@ -23,7 +23,7 @@ Live demo: [brd-eta.vercel.app](https://brd-eta.vercel.app)
 
 ---
 
-## Tech Stack
+## Tech Stack used
 
 - **Frontend**: React (Create React App)  
 - **Styling**: Tailwind CSS + PostCSS  
