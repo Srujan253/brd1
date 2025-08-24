@@ -2,7 +2,7 @@
 
 A React-based web application (hosted at: [brd-eta.vercel.app](https://brd-eta.vercel.app)).
 
-## 🚀 Table of Contents
+## 🚀 Table of Content
 
 - [About](#about)  
 - [Tech Stack](#tech-stack)  
@@ -15,7 +15,7 @@ A React-based web application (hosted at: [brd-eta.vercel.app](https://brd-eta.v
 
 ---
 
-## About
+## About this project
 
 This project was bootstrapped with Create React App and enhanced using Tailwind CSS. It serves as a foundation for building and deploying modern React web applications.
 
